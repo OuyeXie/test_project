@@ -1,5 +1,8 @@
 .project
 
+cpp/build/*
+java/build/*
+
 # Compiled Object files
 *.slo
 *.lo

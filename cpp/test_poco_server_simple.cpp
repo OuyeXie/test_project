@@ -1,6 +1,6 @@
 /*
  * test_poco_server_simple.cpp
- * to compile and build: g++ -o test_poco_server_simple test_poco_server_simple.cpp -lPocoNet -lPocoUtil -lPocoFoundation
+ * to compile and build in build folder: g++ -o test_poco_server_simple ../test_poco_server_simple.cpp -lPocoNet -lPocoUtil -lPocoFoundation
  *
  *  Created on: Oct 31, 2013
  *      Author: xieouye
