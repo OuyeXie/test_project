@@ -1,5 +1,6 @@
 /*
  * test_poco_server_simple.cpp
+ * to compile and build: g++ -o test_poco_server_simple test_poco_server_simple.cpp -lPocoNet -lPocoUtil -lPocoFoundation
  *
  *  Created on: Oct 31, 2013
  *      Author: xieouye
@@ -56,12 +57,33 @@ public:
     resp.setStatus(HTTPResponse::HTTP_OK);
     resp.setContentType("text/html");
 
+    Poco::Net::HTMLForm form;
+	if(! req.getMethod().compare("GET"))
+	{   form.load(req);  }
+	else if(! req.getMethod().compare("POST"))
+	{
+		form.load(req, req.stream());
+	}
+	else
+	{
+		resp.setStatusAndReason(HTTPResponse::HTTP_METHOD_NOT_ALLOWED);
+	resp.send();
+	return;
+	}
+
     ostream& out = resp.send();
     out << "<h1>Hello world!</h1>"
         << "<p>Count: "  << ++count         << "</p>"
         << "<p>Host: "   << req.getHost()   << "</p>"
         << "<p>Method: " << req.getMethod() << "</p>"
         << "<p>URI: "    << req.getURI()    << "</p>";
+
+    Poco::Net::NameValueCollection::ConstIterator i;
+    for(i = form.begin(); i != form.end(); ++i)
+    {
+    	out << "<p>name: "    << i->first    << "</p>";
+    	out << "<p>value: "   << i->second   << "</p>";
+    }
     out.flush();
 
     cout << endl
