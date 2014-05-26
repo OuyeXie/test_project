@@ -16,3 +16,5 @@ java/build/*
 *.lai
 *.la
 *.a
+
+.pydevproject
